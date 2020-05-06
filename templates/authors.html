@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for au in author %}
+    <div>
+        <h1>{{ au.name }}</h1>
+        <h1>{{ au.email }}</h1>
+    {% if au.picture %}
+        <p> 
+        <img src="/{{ au.picture }}">
+        </p>
+    {% endif %}
+    </div>
+{% endfor %}
+</body>
+</html>

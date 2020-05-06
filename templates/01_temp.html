@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<img src="{% static 'images/socket.png' %}">
+<img src="/static/images/egg.jpg">
+<h1> welcome to my first django template</h1>
+<p> 姓名:{{ name }}</p>
+<P> 年龄:{{ age }}</P>
+<P> 性别:{{ gender }}</P>
+<P> str:{{ str }}</P>
+<P> num:{{ num }}</P>
+<P> tup:{{ tup }}</P>
+{% for t in tup%}
+<p
+    {% if forloop.first %}
+        style="background-color: red"
+    {% elif forloop.last %}
+        style="background-color: blueviolet"
+    {% else %}
+        style="background-color: aqua"
+    {% endif %}
+>
+<span>{{ t }}</span><br>
+<span> 下标:{{ forloop.counter0 }}</span><br>
+<span> 次数:{{ forloop.counter }}</span><br>
+<span> 第一次循环:{{ forloop.first }}</span><br>
+<span> 最后一次循环:{{ forloop.last }}</span><br>
+</p>
+
+{% endfor %}
+<P> tup[0]:{{ tup.0 }}</P>
+
+<P> list:{{ list }}</P>
+<P> list[1]:{{ list.1 }}</P>
+<select>
+    {% for u in list %}
+        <option
+                {% if forloop.last %}
+                    selected
+                {% endif %}
+                value="{{ forloop.counter0 }}">{{ u }}</option>>
+    {% endfor %}
+</select>
+
+<P> dic:{{ dic }}</P>
+<P> say:{{ say }}</P>
+<P> dog.name:{{ dog.name }}</P>
+<P> dog.eat:{{ dog.eat }}</P>
+<!--dog.name:{{ dog.name }} -->
+{% comment dog.name:{{ dog.name }} %}
+...
+{% endcomment %}
+</body>
+</html>

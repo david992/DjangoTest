@@ -1,0 +1,30 @@
+"""DjangoTest URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/3.0/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
+from django.urls import path, re_path, register_converter
+from .views import *
+
+register_converter(FourDigitYearConverter, 'yyyy')
+urlpatterns = [
+    # 参数传递
+    path("<int:num1>/", music_views),
+    # re_path('(\d{2})/', music_views),
+    path('<yyyy:year>/<int:month>/<int:day>', years_view),
+
+    # 访问路径是http://127.0.0.1:8000/music的时候 直接访问index页面
+    path('', index_views),
+
+]

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/update/{{ author.id }}" method="POST">
+    {% csrf_token %}
+姓名：<input type="text"value="{{ author.name }}"name="name"><br>
+年龄：<input type="text"value="{{ author.age }}"name="age"><br>
+<input type="hidden" value="{{ author.id }}"name="id">
+邮箱：<input type="text"value="{{ author.email }}"name="email"><br>
+<input type="submit" value="提交"><br>
+</form>
+</body>
+</html>
