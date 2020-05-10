@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button onclick="ajaxBtn()">发送ajax请求</button>
+<button onclick="jqajaxBtn()">发送jqajax请求</button>
+<button onclick="jsonBtn()">发送json请求</button>
+<div id="show"></div>
+<script>
+    function createxhr() {
+        if (window.XMLHttpRequest)
+            return new XMLHttpRequest()
+        return new ActiveXObject("Microsoft.XMLHTTP")
+    }
+    function ajaxBtn() {
+        var xhr = createxhr()
+        xhr.open('get','/ajax_server',true);
+        xhr.onreadystatechange = function(){
+            if (xhr.status==200&&xhr.readyState==4){
+                document.getElementById("show").innerHTML = xhr.responseText;
+            }
+        }
+        xhr.send(null);
+
+    }
+
+</script>
+{% csrf_token %}
+<!--  jquery --ajax-->
+<script  src="/static/js/jquery-3.4.1.js"> </script>
+<script >
+    function jqajaxBtn() {
+        var values = {
+            'csrfmiddlewaretoken':$("[name='csrfmiddlewaretoken']").val()
+        }
+        $.ajaxSetup({
+            data:{csrfmiddlewaretoken:'{{ csrf_token }}'}
+        })
+        {#$.get('/ajax_server',function (data) {#}
+        $.post('/ajax_server/',values,function (data) {
+
+        $("#show").html(data);
+    });
+    }
+</script>
+<!--  json --ajax-->
+<script >
+    function jsonBtn() {
+        $.get('/json_server',function (data) {
+            {#var html ='';#}
+            {#html += "<p>姓名："+data.name+"</p>";#}
+            {#html += "<p>年龄："+data.age+"</p>";#}
+            {#html += "<p>性别："+data.gender+"</p>";#}
+            {#$("#show").html(html)#}
+            $.each(data,function (i,obj) {
+                console.log(obj.pk)
+                console.log(obj.fields.name)
+
+            })
+        },'json');
+
+    }
+</script>
+</body>
+</html>

@@ -49,4 +49,7 @@ urlpatterns = [
     # url(r"^form/$",formviews,name="form")
     path("test/", testviews, name="test"),
     path("session/", sessionviews),
+    path("ajax/", ajaxviews),
+    path("ajax_server/", ajax_serverviews),
+    path('json_server/',json_serverviews),
 ]

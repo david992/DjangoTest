@@ -1,3 +1,6 @@
+import json
+
+from django.core import serializers
 from django.db.models import Avg, Sum
 from django.shortcuts import render, redirect
 from .forms import *
@@ -83,10 +86,26 @@ def login_views(request):
 #         del session["uname"]
 #     return redirect("/index")
 
-def sessioviews(request):
+def sessionviews(request):
     request.session["uphone"] = 'uphone'
     return HttpResponse("session kok")
-
+def ajaxviews(request):
+    return render(request,'ajax.html')
+def ajax_serverviews(request):
+    return HttpResponse("django中ajax实现的异步")
+def json_serverviews(request):
+    dec = {
+        'name':'david',
+        'age':24,
+        'gender':"男"
+    }
+#     dec转换为json字符串
+#     jsonstr = json.dumps(dec)
+    author = Author.objects.all()
+    print(author)
+    # 将author准换位json格式字符串
+    jsonstr = serializers.serialize('json',author)
+    return HttpResponse(jsonstr)
 def register_views(request):
   return render(request,'register.html')
 def addviews(request):
