@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="checkbox" id="allcheck"  onclick="demo()" />全选
+<input type="checkbox" name="choice" class="checknum"  onclick="setAll()" />1
+<input type="checkbox" name="choice" class="checknum"  onclick="setAll()" />2
+<input type="checkbox" name="choice" class="checknum"  onclick="setAll()" />3
+<input type="checkbox" name="choice" class="checknum"  onclick="setAll()" />4
+
+
+<script>
+
+    //点击全选，子复选框被选中
+    function demo(){
+        var allcheck=document.getElementById("allcheck");
+        var choice=document.getElementsByName("choice");
+        for(var i=0;i<choice.length;i++){
+            choice[i].checked=allcheck.checked;
+        }
+    }
+
+    //点击子复选框,全选框 选中、取消
+    function setAll() {
+        if (!$(".checknum").checked) {
+            $("#allcheck").prop("checked", false); // 子复选框某个不选择，全选也被取消
+        }
+        var choicelength = $("input[type='checkbox'][class='checknum']").length;
+        var choiceselect = $("input[type='checkbox'][class='checknum']:checked").length;
+
+        if (choicelength == choiceselect) {
+            $("#allcheck").prop("checked", true);   // 子复选框全部部被选择，全选也被选择；1.对于HTML元素我们自己自定义的DOM属性，在处理时，使用attr方法；2.对于HTML元素本身就带有的固有属性，在处理时，使用prop方法。
+        }
+    }
+
+</script>
+</body>
+</html>
